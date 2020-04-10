@@ -99,6 +99,13 @@ class GraphBuilder:
         for (i0, i1), weight in weightedEdges.items():
             if weight > weightCutoff and weightCutoff > 0: 
                 sgraph.add_edge(i0, i1, weight = weight)
+        
+        nodesToRemove = []
+        
+        for node in sgraph.nodes():
+            if sgraph.degree(node) == 0: nodesToRemove.append(node)
+        
+        sgraph.remove_nodes_from(nodesToRemove)
             
         return sgraph
     

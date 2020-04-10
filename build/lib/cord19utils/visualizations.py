@@ -29,9 +29,9 @@ def drawChordGraph(sgraph, id2label):
     nodeDF = pd.DataFrame(nodeData)
     edgeDF = pd.DataFrame(edgeData)
 
-    chord = hv.Chord((edgeDF, hv.Dataset(pd.DataFrame(nodeDF), 'index'))).select(value=(5, None))
+    chord = hv.Chord((edgeDF, hv.Dataset(pd.DataFrame(nodeDF), 'id'))).select(value=(5, None))
     chord.opts(
         opts.Chord(cmap='Category20', edge_cmap='Category20', edge_color=dim('source').str(), 
-                   labels='name', node_color=dim('index').str()))
+                   labels='name', node_color=dim('id').str()))
 
     return chord
