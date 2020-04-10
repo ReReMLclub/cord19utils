@@ -51,14 +51,14 @@ class TextProcessor:
         lda_model_tfidf = gensim.models.LdaMulticore(com_tfidf, num_topics = num_topics, id2word=self.dictionary, passes=2, workers=4)
         
         topics = [t[1] for t in lda_model_tfidf.show_topics()]
-        topicWords = [[sorted(list(proc.destemmer[w.replace('"', '')]), key = lambda w: len(w))[0] for w in re.findall(r'\"[a-z0-9]*\"', aTopic)] for aTopic in topics]
+        topicWords = [[sorted(list(self.destemmer[w.replace('"', '')]), key = lambda w: len(w))[0] for w in re.findall(r'\"[a-z0-9]*\"', aTopic)] for aTopic in topics]
         
         return topicWords
     
     def assignCommunityTopics(self, communities, verbose = False):
         self.id2label = defaultdict(str)
         for (cid, nodes) in enumerate(communities):
-            topics = proc.extractTopics(nodes)
+            topics = self.extractTopics(nodes)
             label = '\n'.join([f"{t+1}: {','.join(words[:3])}" for t, words in enumerate(topics)])
             self.id2label[cid] = label
             if verbose:

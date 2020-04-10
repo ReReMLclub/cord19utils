@@ -1,5 +1,6 @@
 import networkx as nx
 import holoviews as hv
+import pandas as pd
 from holoviews import opts, dim
 hv.extension('bokeh')
 
