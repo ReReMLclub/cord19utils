@@ -1,0 +1,6 @@
+networkx
+holoviews>=1.13.0
+pandas
+numpy
+gensim
+nltk

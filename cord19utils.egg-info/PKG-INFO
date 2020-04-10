@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: cord19utils
+Version: 0.1
+Summary: Python tools and scripts for processing CORD19 Kaggle Challenge data
+Home-page: https://github.com/ReReMLclub/cord19utils
+Author: Leland Barnard
+Author-email: leland.barnard@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
