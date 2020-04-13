@@ -4,7 +4,7 @@ import pandas as pd
 from holoviews import opts, dim
 hv.extension('bokeh')
 
-def drawChordGraph(sgraph, id2label):
+def drawChordGraph(sgraph, id2label, nodeOfInterest = False):
     nodeData = {
         'id' : [],
         'name' : []
@@ -15,6 +15,12 @@ def drawChordGraph(sgraph, id2label):
         'target' : [],
         'value' : []
     }
+    
+    if nodeOfInterest:
+        nodesToKeep = [nodeOfInterest] + [node for node in sgraph.predecessors(nodeOfInterest)] + [node for node in sgraph.successors(nodeOfInterest)]
+        sgraph = sgraph.subgraph(nodesToKeep)
+        
+    for edge in sgraph.edges():
 
     for node in sgraph.nodes():
         nodeData['id'].append(node)

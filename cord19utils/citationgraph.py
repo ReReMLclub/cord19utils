@@ -69,7 +69,7 @@ class GraphBuilder:
 
         return graph
     
-    def assignCommunities(self, graph, nCommunities = 20, max_iter = 20, seed = 2525):
+    def assignCommunities(self, graph, nCommunities = 20, max_iter = 200, seed = 2525):
         gSize = graph.number_of_nodes()
         connectedComponents = nx.connected_components(nx.Graph(graph))
         subgraphs = [nx.Graph(graph).subgraph(cc) for cc in connectedComponents]
@@ -81,7 +81,7 @@ class GraphBuilder:
         
         return communities
     
-    def buildSupergraph(self, graph, communities, weightCutoff = -1):
+    def buildSupergraph(self, graph, communities, weightCutoff = 0):
         sgraph = nx.DiGraph()
         node2com = {n : i for (i, community) in enumerate(communities) for n in list(community)}
         weightedEdges = defaultdict(int)
@@ -97,7 +97,7 @@ class GraphBuilder:
                         weightedEdges[(i0, i1)] += 1
         
         for (i0, i1), weight in weightedEdges.items():
-            if weight > weightCutoff and weightCutoff > 0: 
+            if weight > weightCutoff: 
                 sgraph.add_edge(i0, i1, weight = weight)
         
         nodesToRemove = []

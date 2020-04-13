@@ -43,22 +43,22 @@ class TextProcessor:
         self.dictionary = gensim.corpora.Dictionary(documents)
         self.dictionary.filter_extremes(no_below=15, no_above=0.5, keep_n=100000)
         
-    def extractTopics(self, community, num_topics = 3):
+    def extractTopics(self, community, num_topics, random_state):
         documents = [self.preprocess(self.graph.nodes()[node]['text']) for node in community]
         bag = [self.dictionary.doc2bow(doc) for doc in documents]
         tfidf = models.TfidfModel(bag)
         com_tfidf = tfidf[bag]
-        lda_model_tfidf = gensim.models.LdaMulticore(com_tfidf, num_topics = num_topics, id2word=self.dictionary, passes=2, workers=4)
+        lda_model_tfidf = gensim.models.LdaMulticore(com_tfidf, num_topics = num_topics, id2word = self.dictionary, passes = 2, workers = 4, random_state = random_state)
         
         topics = [t[1] for t in lda_model_tfidf.show_topics()]
         topicWords = [[sorted(list(self.destemmer[w.replace('"', '')]), key = lambda w: len(w))[0] for w in re.findall(r'\"[a-z0-9]*\"', aTopic)] for aTopic in topics]
         
         return topicWords
     
-    def assignCommunityTopics(self, communities, verbose = False):
+    def assignCommunityTopics(self, communities, verbose = False, num_topics = 3, random_state = 2525):
         self.id2label = defaultdict(str)
         for (cid, nodes) in enumerate(communities):
-            topics = self.extractTopics(nodes)
+            topics = self.extractTopics(nodes, num_topics, random_state)
             label = '\n'.join([f"{t+1}: {','.join(words[:3])}" for t, words in enumerate(topics)])
             self.id2label[cid] = label
             if verbose:

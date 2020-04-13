@@ -48,7 +48,7 @@ class TextProcessor:
         bag = [self.dictionary.doc2bow(doc) for doc in documents]
         tfidf = models.TfidfModel(bag)
         com_tfidf = tfidf[bag]
-        lda_model_tfidf = gensim.models.LdaMulticore(com_tfidf, num_topics = num_topics, id2word=self.dictionary, passes=2, workers=4, random_state = random_state)
+        lda_model_tfidf = gensim.models.LdaMulticore(com_tfidf, num_topics = num_topics, id2word = self.dictionary, passes = 2, workers = 4, random_state = random_state)
         
         topics = [t[1] for t in lda_model_tfidf.show_topics()]
         topicWords = [[sorted(list(self.destemmer[w.replace('"', '')]), key = lambda w: len(w))[0] for w in re.findall(r'\"[a-z0-9]*\"', aTopic)] for aTopic in topics]
