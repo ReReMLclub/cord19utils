@@ -69,7 +69,7 @@ class GraphBuilder:
 
         return graph
     
-    def assignCommunities(self, graph, nCommunities = 20, max_iter = 20):
+    def assignCommunities(self, graph, nCommunities = 20, max_iter = 20, seed = 2525):
         gSize = graph.number_of_nodes()
         connectedComponents = nx.connected_components(nx.Graph(graph))
         subgraphs = [nx.Graph(graph).subgraph(cc) for cc in connectedComponents]
@@ -77,7 +77,7 @@ class GraphBuilder:
         for subgraph in subgraphs:
             sgSize = subgraph.number_of_nodes()
             if sgSize >= gSize*0.01:
-                communities.extend(list(asyn_fluidc(nx.Graph(graph).subgraph(subgraph), k = int((sgSize/gSize)*nCommunities), max_iter = max_iter)))
+                communities.extend(list(asyn_fluidc(nx.Graph(graph).subgraph(subgraph), k = int((sgSize/gSize)*nCommunities), max_iter = max_iter, seed = seed)))
         
         return communities
     
