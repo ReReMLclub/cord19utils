@@ -19,8 +19,6 @@ def drawChordGraph(sgraph, id2label, nodeOfInterest = False):
     if nodeOfInterest:
         nodesToKeep = [nodeOfInterest] + [node for node in sgraph.predecessors(nodeOfInterest)] + [node for node in sgraph.successors(nodeOfInterest)]
         sgraph = sgraph.subgraph(nodesToKeep)
-        
-    for edge in sgraph.edges():
 
     for node in sgraph.nodes():
         nodeData['id'].append(node)
