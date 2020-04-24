@@ -1,5 +1,5 @@
 # cord19utils
-This package contains the function and class definitions for the Kaggle notebook found here: https://www.kaggle.com/lbvigilantdata/a-citation-network-model-for-topic-discovery.
+This package contains the function and class definitions for the Kaggle notebook found here: https://www.kaggle.com/reremlclub/a-citation-network-model-for-topic-discovery.
 
 
 ## CorpusReader
